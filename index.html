@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 3 Science Challenge</title>
+<style>
+:root{--ink:#15243d;--muted:#63718b;--mint:#37e0ae;--lime:#d8ff62;--violet:#9275ff;--paper:#f5f7ff}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:22px;font-family:Inter,ui-rounded,system-ui,Arial,sans-serif;color:var(--ink);display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 12% 12%,#c5ffe9 0,transparent 27%),radial-gradient(circle at 88% 18%,#e3d9ff 0,transparent 28%),radial-gradient(circle at 80% 90%,#ffe0f0 0,transparent 25%),#f5f7ff;overflow-x:hidden}
+body:before,body:after{content:"";position:fixed;border-radius:50%;pointer-events:none;filter:blur(1px);opacity:.5;z-index:-1}
+body:before{width:260px;height:260px;background:#b2f4df;left:-90px;bottom:-80px}body:after{width:210px;height:210px;background:#d9caff;right:-65px;top:-60px}
+.app{width:min(980px,100%);background:#ffffffed;border:1px solid #fff;border-radius:32px;box-shadow:0 28px 90px #24345c26;overflow:hidden;backdrop-filter:blur(12px)}
+.hero{position:relative;isolation:isolate;overflow:hidden;padding:34px 38px 32px;color:white;background:linear-gradient(115deg,#132a56 0%,#3157a5 48%,#5b3e9f 100%)}
+.hero:before{content:"";position:absolute;width:310px;height:310px;border:1px solid #ffffff25;border-radius:50%;right:-45px;top:-170px;box-shadow:0 0 0 28px #ffffff0b,0 0 0 58px #ffffff08;z-index:-1}
+.hero:after{content:"☀️";position:absolute;font-size:104px;right:42px;top:18px;opacity:.95;filter:drop-shadow(0 10px 18px #101d4c66);animation:float 4s ease-in-out infinite}
+.kicker{font-size:11px;letter-spacing:2.2px;text-transform:uppercase;color:#c9ffe9;font-weight:900}
+h1{font-size:clamp(29px,5vw,48px);margin:10px 0 9px;line-height:1.02;letter-spacing:-1.5px;text-shadow:0 4px 18px #0b1a4938}
+.hero p{margin:0;color:#e5eaff;max-width:680px;line-height:1.55;font-size:15px}
+.content{padding:28px 38px 36px}.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.pill{padding:10px 15px;border-radius:14px;background:#f0f2ff;color:#3c4a78;font-size:13px;font-weight:850;border:1px solid #e3e7ff;box-shadow:0 4px 12px #283c7610}
+.progress-wrap{height:12px;background:#e9edfa;border-radius:99px;overflow:hidden;margin:12px 0 26px;padding:2px}
+.progress{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#2de0a8,#d3f45d,#9b7cff);transition:width .35s}
+.start{text-align:center;padding:18px 8px 8px}.start h2{font-size:clamp(24px,4vw,32px);margin:0 0 8px;color:#1c2b55}
+.start p{color:var(--muted);line-height:1.65;max-width:630px;margin:0 auto 24px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;max-width:700px;margin:0 auto 22px}
+.choice-card{position:relative;overflow:hidden;min-height:180px;border:2px solid transparent;border-radius:24px;padding:23px;text-align:left;cursor:pointer;color:white;transition:.25s;box-shadow:0 14px 28px #273b681c}
+.choice-card:first-child{background:linear-gradient(140deg,#087e73,#20c997 75%,#a5ed9b)}.choice-card:nth-child(2){background:linear-gradient(140deg,#433a9c,#7964e8 70%,#c18aff)}
+.choice-card:after{content:"";position:absolute;width:155px;height:155px;border:1px solid #ffffff40;border-radius:50%;right:-28px;bottom:-70px;box-shadow:0 0 0 17px #ffffff10,0 0 0 35px #ffffff0a}
+.choice-card:hover{transform:translateY(-7px) scale(1.015);box-shadow:0 20px 35px #273b6830;border-color:#fff}
+.choice-card b{display:block;font-size:18px;margin:10px 0 6px;position:relative;z-index:1}.choice-card small{color:#f1fffc;font-size:13px;position:relative;z-index:1}
+.symbol{font-size:38px;filter:drop-shadow(0 5px 8px #17234a30)}button{font:inherit}
+.primary{border:0;border-radius:16px;padding:15px 24px;background:linear-gradient(100deg,#263f91,#7956d9);color:#fff;font-weight:900;cursor:pointer;box-shadow:0 10px 22px #5146a638;transition:.2s}
+.primary:hover{transform:translateY(-3px);filter:brightness(1.08);box-shadow:0 14px 28px #5146a64a}.primary:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.secondary{border:1.5px solid #dce2f3;border-radius:15px;padding:13px 19px;background:white;color:#445276;font-weight:800;cursor:pointer;transition:.2s}.secondary:hover{background:#f2f4ff}
+.question-head{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#677493;font-size:13px;font-weight:900}
+#lessonName{background:#e8fff6;color:#087c65;padding:8px 12px;border-radius:12px}#questionNo{background:#f0edff;color:#6250ad;padding:8px 12px;border-radius:12px}
+.question{font-size:clamp(20px,3vw,27px);line-height:1.35;margin:22px 0 24px;font-weight:900;letter-spacing:-.45px;color:#1c2c56}
+.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.answer{width:100%;min-height:72px;text-align:left;border:2px solid #e5e9f6;background:linear-gradient(145deg,#fff,#f7f8ff);padding:14px 16px;border-radius:18px;color:#293858;font-weight:750;cursor:pointer;display:flex;align-items:center;gap:13px;transition:.18s;box-shadow:0 5px 13px #1d2c5610}
+.answer:hover:not(:disabled){border-color:#9b8aff;background:#f4f0ff;transform:translateY(-2px);box-shadow:0 10px 20px #6654b51b}
+.letter{width:34px;height:34px;flex:0 0 34px;border-radius:12px;background:#e9edff;display:grid;place-items:center;color:#594ca2;font-weight:950}
+.answer.correct{border-color:#41c99a;background:#eafff5;color:#087653}.answer.correct .letter{background:#baf4dc;color:#087653}
+.answer.wrong{border-color:#ff9eaf;background:#fff0f4;color:#b33d5b}.answer.wrong .letter{background:#ffdbe5;color:#b33d5b}
+.feedback{margin-top:17px;padding:15px 17px;border-radius:16px;font-weight:850;display:none}.feedback.show{display:block;animation:pop .25s ease}
+.feedback.good{background:#e7fff4;color:#087653;border:1px solid #b9f0d9}.feedback.bad{background:#fff0f4;color:#ad3554;border:1px solid #ffd0dc}
+.actions{display:flex;justify-content:space-between;align-items:center;margin-top:22px;gap:12px}
+.result{text-align:center;padding:16px 5px}.score-ring{width:158px;height:158px;border-radius:50%;margin:20px auto;background:conic-gradient(#28c994 var(--score),#e9edfa 0);display:grid;place-items:center;position:relative;box-shadow:0 12px 30px #2b987c20}
+.score-ring:before{content:"";position:absolute;inset:12px;background:white;border-radius:50%}.score-ring strong{position:relative;font-size:32px;color:#263b78}
+.result h2{font-size:30px;margin:8px 0;color:#1d2d59}.result p{color:var(--muted)}
+.review{margin:22px 0;text-align:left;display:grid;gap:10px}.review-item{border:1px solid #e7eafa;border-radius:15px;padding:14px;background:#fbfcff}
+.review-item b{display:block;margin-bottom:5px;color:#26375f}.review-item small{color:var(--muted);line-height:1.5}
+.prize{margin:22px auto 10px;max-width:560px;padding:24px;border-radius:24px;background:linear-gradient(135deg,#fff8d9,#ffe7a2);border:2px solid #f4c94e;box-shadow:0 15px 32px #b78b1d25;color:#674b08;position:relative;overflow:hidden}
+.prize:after{content:"✦";position:absolute;right:20px;top:8px;font-size:48px;color:#e8b832;opacity:.6}.prize .medal{font-size:64px;display:block;filter:drop-shadow(0 7px 8px #9e6c1f30)}
+.prize h3{margin:6px 0;font-size:25px}.prize p{color:#775d19;margin:8px 0}
+.confetti{position:fixed;top:-20px;width:10px;height:15px;z-index:20;pointer-events:none;animation:fall 2.8s linear forwards}
+.footer{text-align:center;padding:0 20px 22px;color:#98a1b6;font-size:11px}
+@keyframes fall{to{transform:translateY(110vh) rotate(760deg);opacity:.1}}@keyframes float{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-10px) rotate(5deg)}}@keyframes pop{from{transform:scale(.97);opacity:.3}to{transform:scale(1);opacity:1}}
+@media(max-width:650px){body{padding:9px}.app{border-radius:23px}.hero{padding:25px 22px}.hero:after{font-size:70px;right:14px;top:18px;opacity:.55}.content{padding:22px 17px 26px}.cards,.answers{grid-template-columns:1fr}.choice-card{min-height:150px}.actions{align-items:stretch}.actions button{flex:1}.question-head{align-items:flex-start;flex-direction:column}}
+</style></head>
+<body><main class="app">
+<header class="hero"><div class="kicker">✦ SCIENCE QUEST • SECOND PREPARATORY ✦</div><h1>ENERGY<br>ADVENTURE</h1><p>🌿 Capture the sunlight. ⚡ Power up the cells. Become the ultimate Unit 3 Science Champion!</p></header>
+<section class="content">
+<div class="stats"><span class="pill" id="lessonTag">30 questions</span><span class="pill" id="counter">Ready to play</span><span class="pill" id="scoreTag">⭐ Score: 0</span></div>
+<div class="progress-wrap"><div class="progress" id="progress"></div></div>
+<div id="startScreen" class="start"><h2>🚀 Ready for the Ultimate Science Quest?</h2><p>Two exciting missions are waiting! Choose your challenge, collect stars for every correct answer, and unlock the Champion Prize. Let’s power up your science skills!</p>
+<div class="cards">
+<button class="choice-card" onclick="startGame(1)"><span class="symbol">🌿☀️</span><b>Mission 1: Photosynthesis</b><small>15 multiple-choice questions</small></button>
+<button class="choice-card" onclick="startGame(2)"><span class="symbol">🔬⚡</span><b>Mission 2: Cellular Respiration</b><small>15 multiple-choice questions</small></button>
+</div><button class="primary" onclick="startGame(0)">✨ PLAY FULL QUEST • 30 QUESTIONS</button>
+</div>
+<div id="gameScreen" hidden>
+<div class="question-head"><span id="lessonName">LESSON ONE</span><span id="questionNo">QUESTION 1 / 30</span></div><div style="font-size:13px;color:#268453;font-weight:800;margin-top:13px">⚡ YOUR SCIENCE MISSION IS LIVE</div>
+<div class="question" id="questionText"></div>
+<div class="answers" id="answers"></div>
+<div class="feedback" id="feedback"></div>
+<div class="actions"><button class="secondary" onclick="quitGame()">Exit game</button><button class="primary" id="nextBtn" onclick="nextQuestion()" disabled>Next question →</button></div>
+</div>
+<div id="resultScreen" hidden class="result">
+<div class="kicker" style="color:#246bfd">CHALLENGE COMPLETED</div><div class="score-ring" id="scoreRing"><strong id="scoreBig">0/30</strong></div><h2 id="resultTitle">Great effort!</h2><p id="resultText"></p>
+<div id="prizeBox"></div><div class="actions" style="justify-content:center"><button class="secondary" onclick="showReview()">Review answers</button><button class="primary" onclick="home()">Play again</button></div><div class="review" id="review" hidden></div>
+</div>
+</section><div class="footer">✦ UNIT 3 • SCIENCE QUEST • TERM 1 ✦</div>
+</main>
+<script>
+const bank = [{"lesson": 1, "q": "What did Van Helmont conclude from his experiment about the main factor needed for tree growth?", "o": ["Soil", "Water", "Mineral salts only", "Oxygen"], "a": 1}, {"lesson": 1, "q": "How much did the willow tree weigh after five years in Van Helmont’s experiment?", "o": ["2.2 kg", "55 g", "75 kg", "90 kg"], "a": 2}, {"lesson": 1, "q": "Where does photosynthesis mainly take place in plant cells?", "o": ["Mitochondria", "Green plastids (chloroplasts)", "Nucleus", "Cell membrane"], "a": 1}, {"lesson": 1, "q": "Which structure surrounds a green plastid and regulates the movement of substances into and out of it?", "o": ["A double membrane", "A cell wall only", "Cristae", "A single thylakoid"], "a": 0}, {"lesson": 1, "q": "What is the fluid-filled space inside a green plastid called?", "o": ["Granum", "Matrix", "Stroma", "Crista"], "a": 2}, {"lesson": 1, "q": "A granum consists of a stack of structural units called:", "o": ["Mitochondria", "Thylakoids", "Stomata", "Cristae"], "a": 1}, {"lesson": 1, "q": "Where do the light-dependent reactions of photosynthesis take place?", "o": ["In the stroma", "On the thylakoid membranes in the grana", "In the cytoplasm", "In the mitochondrial matrix"], "a": 1}, {"lesson": 1, "q": "Which colours of light does chlorophyll absorb, according to the textbook?", "o": ["Green and yellow", "Red and blue", "Green and blue only", "All colours equally"], "a": 1}, {"lesson": 1, "q": "Which colour of light is transmitted by a clear chlorophyll solution?", "o": ["Red", "Blue", "Green", "Violet"], "a": 2}, {"lesson": 1, "q": "During the light-dependent reactions, part of the energy of active chlorophyll is used to decompose:", "o": ["Glucose", "Carbon dioxide", "Water", "Starch"], "a": 2}, {"lesson": 1, "q": "Where do the light-independent reactions take place?", "o": ["In the stroma", "In the grana", "In the cytoplasm", "In the outer membrane"], "a": 0}, {"lesson": 1, "q": "Which substances combine to produce glucose during the light-independent reactions?", "o": ["Oxygen and water", "Hydrogen and carbon dioxide", "Glucose and oxygen", "Starch and water"], "a": 1}, {"lesson": 1, "q": "What is the colour formed when iodine solution is added to a part of a leaf containing starch?", "o": ["Green", "Red", "Dark blue", "Yellow"], "a": 2}, {"lesson": 1, "q": "Why does a part of a leaf covered with opaque tape not form starch during the experiment?", "o": ["It receives too much water", "It does not receive light", "It contains no carbon dioxide", "Its temperature is always low"], "a": 1}, {"lesson": 1, "q": "Which of the following is mentioned in the textbook as a factor affecting the rate of photosynthesis?", "o": ["Wind", "Sound", "Soil colour", "Leaf shape only"], "a": 0}, {"lesson": 2, "q": "Gas exchange in plants involves the exchange of which two gases with the surrounding environment?", "o": ["Nitrogen and hydrogen", "Oxygen and carbon dioxide", "Helium and oxygen", "Hydrogen and nitrogen"], "a": 1}, {"lesson": 2, "q": "Through which natural openings in leaves do plants obtain oxygen needed for respiration?", "o": ["Cristae", "Stomata", "Thylakoids", "Grana"], "a": 1}, {"lesson": 2, "q": "When does gas exchange related to cellular respiration occur in plants?", "o": ["During daytime only", "During nighttime only", "During both day and night", "Only when sunlight is strong"], "a": 2}, {"lesson": 2, "q": "What happens to clear limewater when carbon dioxide gas passes through it?", "o": ["It turns milky", "It turns blue", "It becomes colourless immediately", "It turns green"], "a": 0}, {"lesson": 2, "q": "What is cellular respiration?", "o": ["Building glucose using sunlight", "Breaking down nutrients such as glucose inside living cells and releasing energy", "Absorbing minerals from soil", "The exchange of gases through stomata only"], "a": 1}, {"lesson": 2, "q": "Most cellular respiration takes place inside the:", "o": ["Nucleus", "Chloroplasts", "Mitochondria", "Cell wall"], "a": 2}, {"lesson": 2, "q": "What is the main function of the outer membrane of a mitochondrion?", "o": ["To absorb sunlight", "To protect its components and regulate substance movement", "To store starch", "To make chlorophyll"], "a": 1}, {"lesson": 2, "q": "The folds of the inner mitochondrial membrane are called:", "o": ["Thylakoids", "Grana", "Cristae", "Stomata"], "a": 2}, {"lesson": 2, "q": "What is the matrix of a mitochondrion?", "o": ["A fluid containing enzymes inside the inner membrane", "A stack of thylakoids", "The outer covering of a chloroplast", "A gas-filled space"], "a": 0}, {"lesson": 2, "q": "Where does the first stage of cellular respiration take place?", "o": ["Inside the mitochondria", "In the cytoplasm", "In the nucleus", "In the chloroplast grana"], "a": 1}, {"lesson": 2, "q": "In the first stage of cellular respiration, glucose is broken down into:", "o": ["Two molecules of pyruvic acid", "Oxygen and starch", "Carbon dioxide only", "Two glucose molecules"], "a": 0}, {"lesson": 2, "q": "The second stage of cellular respiration takes place inside the mitochondria in the presence of:", "o": ["Light", "Nitrogen", "Oxygen", "Chlorophyll"], "a": 2}, {"lesson": 2, "q": "Which products are formed in the second stage of cellular respiration?", "o": ["Glucose and oxygen", "A large amount of energy, water and carbon dioxide", "Starch and oxygen", "Proteins and water"], "a": 1}, {"lesson": 2, "q": "Anabolism refers to processes in which:", "o": ["Large molecules are broken down and energy is released", "Energy is consumed to build large molecules from simple molecules", "Oxygen is absorbed through stomata", "Glucose is converted into starch only"], "a": 1}, {"lesson": 2, "q": "Which statement describes catabolism?", "o": ["Building proteins from amino acids using energy", "Building complex molecules from simple ones", "Breaking down large molecules into simpler molecules and releasing energy", "Absorbing light by chlorophyll"], "a": 2}];
+let game=[],index=0,score=0,chosen=false,records=[];
+const $=id=>document.getElementById(id);
+function startGame(lesson){
+ game=bank.filter(x=>lesson===0||x.lesson===lesson).map(x=>({...x}));index=0;score=0;records=[];chosen=false;
+ $('startScreen').hidden=true;$('resultScreen').hidden=true;$('gameScreen').hidden=false;
+ $('lessonTag').textContent=lesson===0?'Full Unit Challenge':lesson===1?'Lesson One':'Lesson Two';
+ render();
+}
+function render(){
+ const q=game[index];chosen=false;$('counter').textContent=`Question ${index+1} of ${game.length}`;$('scoreTag').textContent=`⭐ Score: ${score}`;
+ $('questionNo').textContent=`QUESTION ${index+1} / ${game.length}`;$('lessonName').textContent=q.lesson===1?'LESSON ONE • PHOTOSYNTHESIS':'LESSON TWO • CELLULAR RESPIRATION';
+ $('questionText').textContent=q.q;$('progress').style.width=(index/game.length*100)+'%';
+ $('feedback').className='feedback';$('feedback').textContent='';$('nextBtn').disabled=true;$('nextBtn').textContent=index===game.length-1?'See results':'Next question →';
+ $('answers').innerHTML='';q.o.forEach((option,i)=>{let b=document.createElement('button');b.className='answer';b.innerHTML=`<span class="letter">${'ABCD'[i]}</span><span></span>`;b.children[1].textContent=option;b.onclick=()=>select(i);$('answers').appendChild(b)});
+}
+function select(i){
+ if(chosen)return;chosen=true;const q=game[index],buttons=[...$('answers').children],ok=i===q.a;
+ if(ok)score++;records.push({q,selected:i,correct:ok});
+ buttons.forEach((b,n)=>{b.disabled=true;if(n===q.a)b.classList.add('correct');else if(n===i)b.classList.add('wrong')});
+ $('feedback').textContent=ok?'✓ Correct answer! Well done.':`✗ Not quite. Correct answer: ${'ABCD'[q.a]}. ${q.o[q.a]}`;
+ $('feedback').className='feedback show '+(ok?'good':'bad');$('scoreTag').textContent=`⭐ Score: ${score}`;$('nextBtn').disabled=false;
+}
+function nextQuestion(){if(!chosen)return;index++;if(index<game.length)render();else finish()}
+function finish(){
+ $('gameScreen').hidden=true;$('resultScreen').hidden=false;$('progress').style.width='100%';$('counter').textContent='Completed';$('scoreTag').textContent=`⭐ Score: ${score}`;
+ $('scoreBig').textContent=`${score}/${game.length}`;$('scoreRing').style.setProperty('--score',(score/game.length*100)+'%');
+ let pct=score/game.length;$('resultTitle').textContent=pct>=.85?'🌟 Outstanding, Energy Champion!':pct>=.65?'👏 Great work, Young Scientist!':'🌱 Keep learning, Scientist!';
+ $('resultText').textContent=`You answered ${score} out of ${game.length} questions correctly.`;$('review').hidden=true;
+ const prize=$('prizeBox'); if(pct>=.8){const medal=pct===1?'🏆':'🥇';const award=pct===1?'PERFECT SCIENCE MASTER':'ENERGY ADVENTURE CHAMPION';prize.innerHTML=`<div class="prize"><span class="medal">${medal}</span><h3>Congratulations!</h3><b>${award}</b><p>You earned the Unit 3 Champion Prize!</p><p>🎁 Reward: A printable champion certificate and 100 science-star points!</p></div>`;celebrate();}else{prize.innerHTML='<div class="prize" style="background:linear-gradient(135deg,#e9f9ed,#d5f4dc);border-color:#9bd5a8;color:#205b37"><span class="medal">🌱</span><h3>Your next reward is waiting!</h3><p>Reach 80% or more to unlock the Unit 3 Champion Prize. Try again!</p></div>';}
+}
+function celebrate(){const colors=['#f5c542','#35b66b','#5bc0eb','#f06a9b','#9b7bdb'];for(let i=0;i<75;i++){let c=document.createElement('i');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.background=colors[i%colors.length];c.style.animationDelay=(Math.random()*.9)+'s';c.style.transform='rotate('+Math.random()*360+'deg)';document.body.appendChild(c);setTimeout(()=>c.remove(),4000)}}
+function showReview(){let r=$('review');r.hidden=false;r.innerHTML='';records.forEach((x,i)=>{let d=document.createElement('div');d.className='review-item';let b=document.createElement('b');b.textContent=`${i+1}. ${x.q.q}`;let s=document.createElement('small');s.textContent=`Your answer: ${x.q.o[x.selected]} • Correct answer: ${x.q.o[x.q.a]} ${x.correct?'✓':'✗'}`;d.append(b,s);r.append(d)})}
+function home(){$('resultScreen').hidden=true;$('gameScreen').hidden=true;$('startScreen').hidden=false;$('counter').textContent='Ready to play';$('scoreTag').textContent='⭐ Score: 0';$('progress').style.width='0%';$('lessonTag').textContent='30 questions'}
+function quitGame(){if(confirm('Exit this game and return to the start?'))home()}
+</script></body></html>
